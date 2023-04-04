@@ -1,6 +1,7 @@
 package com.acepero13.ocr.receiptrecognizer.core;
 
 import com.acepero13.ocr.receiptrecognizer.api.Image2String;
+import com.acepero13.ocr.receiptrecognizer.api.RecognitionResult;
 import com.acepero13.ocr.receiptrecognizer.utils.image.ImageUtils;
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
@@ -11,6 +12,10 @@ import java.nio.file.Path;
 public class TessOcr implements Image2String {
     private final Tesseract tesseract = new Tesseract();
 
+    /**
+     * Creates a new TessOcr for the German language.
+     * @return A new TessOcr.
+     */
     public static Image2String ofGerman() {
         return new TessOcr("deu");
     }
@@ -24,13 +29,13 @@ public class TessOcr implements Image2String {
     }
 
     @Override
-    public String convertImageToString(BufferedImage image) throws TesseractException {
+    public RecognitionResult convertImageToString(BufferedImage image) throws TesseractException {
         ImageUtils.saveImage(image);
-        return tesseract.doOCR(image);
+        return RecognitionResult.of(tesseract.doOCR(image));
     }
 
-    public String convertImageToString(Path path) throws TesseractException {
-        return tesseract.doOCR(path.toFile());
+    public RecognitionResult convertImageToString(Path path) throws TesseractException {
+        return RecognitionResult.of(tesseract.doOCR(path.toFile()));
     }
 
 

@@ -18,7 +18,7 @@ class TessOcrTest {
 
     void canReadImage() throws TesseractException {
         var converter = TessOcr.ofGerman();
-        String text = converter.convertImageToString(Path.of("src/test/resources/sample.png"));
+        String text = converter.convertImageToString(Path.of("src/test/resources/sample.png")).text();
         var expected = "Der „schnelle” braune Fuchs springt\n" +
                 "über den faulen Hund. Le renard brun\n" +
                 "«rapide» saute par-dessus le chien\n" +
@@ -35,7 +35,7 @@ class TessOcrTest {
         var converter = TessOcr.ofGerman();
         Path imagePath = Path.of("src/test/resources/dm1.jpeg");
         BufferedImage image = ImageIO.read(imagePath.toFile());
-        String text = converter.convertImageToString(image);
+        String text = converter.convertImageToString(image).text();
 
         assertThat(text, containsString("SUMME EUR 27,66"));
     }

@@ -1,0 +1,3 @@
+- Result class that indicates if it was a valid or an invalid result (OK.)
+- Money VO (OK.)
+- 

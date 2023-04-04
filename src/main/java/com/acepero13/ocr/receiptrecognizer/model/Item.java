@@ -1,5 +1,7 @@
 package com.acepero13.ocr.receiptrecognizer.model;
 
+import com.acepero13.ocr.receiptrecognizer.model.vo.Money;
+
 /**
  * This record is used to represent an item that can be purchased.
  *
@@ -8,5 +10,5 @@ package com.acepero13.ocr.receiptrecognizer.model;
  * @since 1.0
  */
 
-public record Item(String name, double price, int quantity) implements Billable {
+public record Item(String name, Money price, int quantity) implements Billable {
 }

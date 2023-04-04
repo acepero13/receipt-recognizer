@@ -19,8 +19,9 @@ public interface Image2String {
      *
      * @param image The image to convert.
      * @return The string representation of the image.
+     * @throws TesseractException If the image could not be converted.
      */
-    String convertImageToString(BufferedImage image) throws TesseractException;
+    RecognitionResult convertImageToString(BufferedImage image) throws TesseractException;
 
 
     /**
@@ -30,5 +31,5 @@ public interface Image2String {
      * @return The string representation of the image.
      * @throws TesseractException If the image could not be converted.
      */
-    String convertImageToString(Path path) throws TesseractException;
+    RecognitionResult convertImageToString(Path path) throws TesseractException;
 }

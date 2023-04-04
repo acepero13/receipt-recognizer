@@ -1,4 +1,6 @@
 package com.acepero13.ocr.receiptrecognizer.model;
 
-public record Total(double price) implements Billable {
+import com.acepero13.ocr.receiptrecognizer.model.vo.Money;
+
+public record Total(Money price) implements Billable {
 }
