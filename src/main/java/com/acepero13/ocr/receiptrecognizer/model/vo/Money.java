@@ -18,11 +18,33 @@ public record Money(double value, Currency currency) {
      */
     public static Money of(String str) {
         try {
-            double parsed = Double.parseDouble(str.replace(",", ".").replaceAll("\\s+", ""));
+            double parsed = Double.parseDouble(sanitize(str));
             return new Money(parsed, Currency.EURO);
         } catch (NumberFormatException exception) {
             return Money.invalid();
         }
+    }
+
+    /**
+     * This method is used to sanitize a string that represents monetary value.
+     *
+     * @param str The string to sanitize.
+     * @return The sanitized string.
+     */
+    private static String sanitize(String str) {
+        String moneyString = str.trim().replaceAll(",", ".");
+        String sanitizedString = moneyString.replaceAll("[^\\d.]", "");
+
+        // Replace all occurrences of multiple decimal points with a single decimal point
+        sanitizedString = sanitizedString.replaceAll("\\.(?=.*\\.)", "");
+
+        // Remove leading zeros
+        sanitizedString = sanitizedString.replaceFirst("^0+(?!$)", "");
+
+        // If the string ends with a dot, remove it
+        sanitizedString = sanitizedString.replaceFirst("\\.$", "");
+
+        return sanitizedString;
     }
 
     /**

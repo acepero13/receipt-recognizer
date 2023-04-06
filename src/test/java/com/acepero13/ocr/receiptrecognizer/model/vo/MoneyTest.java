@@ -3,6 +3,8 @@ package com.acepero13.ocr.receiptrecognizer.model.vo;
 import com.acepero13.ocr.receiptrecognizer.core.exceptions.InvalidPrice;
 import com.acepero13.ocr.receiptrecognizer.core.exceptions.InvalidResult;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.closeTo;
@@ -32,4 +34,23 @@ class MoneyTest {
         assertThat(m1, equalTo(Money.invalid()));
     }
 
+    @Test void moneyContainingAlphaCharacterIsSanitized(){
+        var m1 = Money.of("12,6a");
+        assertThat(m1, equalTo(new Money(12.6, Currency.EURO)));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"12,6", "12,6a", "12.6", "12,6a", "+12.6", "-12.6", "*12.6", "/12.6", "| 12.6", "12...6", "012.6"})
+    void moneyCanBeParsed(String str){
+        var money = Money.of(str);
+        assertThat(money, equalTo(new Money(12.6, Currency.EURO)));
+    }
+
+
+    @ParameterizedTest
+    @ValueSource(strings = {"12,6,6", "12,6.6"})
+    void moneyCanBeParsedAddingOneDecimalPoint(String str){
+        var money = Money.of(str);
+        assertThat(money, equalTo(new Money(126.6, Currency.EURO)));
+    }
 }

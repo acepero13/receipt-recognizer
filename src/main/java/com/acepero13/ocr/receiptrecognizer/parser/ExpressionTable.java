@@ -21,12 +21,13 @@ import java.util.regex.Pattern;
  */
 public enum ExpressionTable {
     //(.+?)\s+(\d+(?:,\d+)?)\s+(\d+)$
-    // TODO: Create money object
-    ITEM("(.+?)\\s+(\\d+(?:,\\d+)?)\\s+(\\d+)$", (Matcher m) -> new Item(m.group(1), toMoney(m.group(2)), Integer.parseInt(m.group(3)))),
+
+    NETO("(?i).*\\b(netto|nettoumsatz)\\b.*", Constants.SKIP),
+    BARZAHLUNG("(?i).*\\b(barzahlung)\\b.*", Constants.SKIP),
+    ITEM("(.+?)\\s+(\\d+,\\d+?)\\s+(\\d+)$", (Matcher m) -> new Item(m.group(1), toMoney(m.group(2)), Integer.parseInt(m.group(3)))),
     TOTAL("(?i)summe\\s*.*?(\\d+\\s*,\\s*\\d+)", (Matcher m) -> new Total(toMoney(m.group(1)))),
 
-    TOTAL_FROM_BRUTO("(?i)bruttoumsatz\\s*.*?(\\d+\\s*,\\s*\\d+)", (Matcher m) -> new Total(toMoney(m.group(1))));
-    ;
+    TOTAL_FROM_BRUTO("(?i)\\b(?:brutto|bruttoumsatz)\\b\\s+(\\+|\\*)*(\\d+[,.]\\d+)", (Matcher m) -> new Total(toMoney(m.group(2))));;
 
     private static Money toMoney(String str) {
         return Money.of(str);
@@ -49,10 +50,20 @@ public enum ExpressionTable {
      */
     public static Optional<Billable> of(String line) {
         return Arrays.stream(values())
-                .map(expressionRegex -> extractMatcherFrom(line, expressionRegex))
+                .map(expressionRegex -> extractMatcherFrom(sanitizeLine(line), expressionRegex))
                 .filter(ExpressionMatcher::isAMatch)
                 .findFirst()
                 .map(ExpressionMatcher::parse);
+    }
+
+    /**
+     * In some cases, the OCR engine can't read the pipe character.
+     *
+     * @param line The line to sanitize.
+     * @return The sanitized line.
+     */
+    private static String sanitizeLine(String line) {
+        return line.replaceAll("\\|", "1");
     }
 
     private static ExpressionMatcher extractMatcherFrom(String line, ExpressionTable expressionRegex) {
@@ -68,5 +79,9 @@ public enum ExpressionTable {
         public Billable parse() {
             return regex.factory.apply(matcher);
         }
+    }
+
+    private static class Constants {
+        public static final Function<Matcher, Billable> SKIP = (Matcher m) -> null;
     }
 }
