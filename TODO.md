@@ -1,3 +1,5 @@
 - Result class that indicates if it was a valid or an invalid result (OK.)
 - Money VO (OK.)
-- Ignore NETTO in the result
+- Ignore NETTO in the result (Ok.)
+- Date of Receipt
+- Increase code coverage

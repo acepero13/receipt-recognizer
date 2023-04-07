@@ -9,6 +9,9 @@ import net.sourceforge.tess4j.TesseractException;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
 
+/**
+ * This class is responsible for converting an image to a string.
+ */
 public class TessOcr implements Image2String {
     private final Tesseract tesseract = new Tesseract();
 
@@ -18,6 +21,10 @@ public class TessOcr implements Image2String {
      */
     public static Image2String ofGerman() {
         return new TessOcr("deu");
+    }
+
+    public static Image2String ofEnglish() {
+        return new TessOcr("eng");
     }
 
     private TessOcr(String language) {

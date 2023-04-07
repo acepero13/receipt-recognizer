@@ -1,18 +1,29 @@
 package com.acepero13.ocr.receiptrecognizer.api;
 
 import com.acepero13.ocr.receiptrecognizer.core.exceptions.InvalidResult;
-
+/**
+ * Result of the OCR
+ */
 final class Result {
     private Result() {
 
     }
 
+    /**
+     * Creates a new result
+     * @param text the text of the result
+     * @return the result
+     */
     static RecognitionResult of(String text) {
         return text == null || text.isBlank()
                 ? invalid()
                 : new Valid(text);
     }
 
+    /**
+     * Creates a new invalid result
+     * @return the invalid result
+     */
     static RecognitionResult invalid() {
         return new RecognitionResult() {
             @Override

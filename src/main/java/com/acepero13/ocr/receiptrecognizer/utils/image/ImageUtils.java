@@ -2,12 +2,9 @@ package com.acepero13.ocr.receiptrecognizer.utils.image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.awt.image.ConvolveOp;
-import java.awt.image.Kernel;
-import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
+
 /**
  * This class is used to save images.
  *

@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.*;
 
 class TessOcrTest {
     @Test
@@ -19,14 +18,16 @@ class TessOcrTest {
     void canReadImage() throws TesseractException {
         var converter = TessOcr.ofGerman();
         String text = converter.convertImageToString(Path.of("src/test/resources/sample.png")).text();
-        var expected = "Der „schnelle” braune Fuchs springt\n" +
-                "über den faulen Hund. Le renard brun\n" +
-                "«rapide» saute par-dessus le chien\n" +
-                "paresseux. La volpe marrone rapida\n" +
-                "salta sopra il cane pigro. EI zorro\n" +
-                "marrön räpido salta sobre el perro\n" +
-                "perezoso. A raposa marrom räpida\n" +
-                "salta sobre 0 cäo preguicoso.\n";
+        var expected = """
+                Der „schnelle” braune Fuchs springt
+                über den faulen Hund. Le renard brun
+                «rapide» saute par-dessus le chien
+                paresseux. La volpe marrone rapida
+                salta sopra il cane pigro. EI zorro
+                marrön räpido salta sobre el perro
+                perezoso. A raposa marrom räpida
+                salta sobre 0 cäo preguicoso.
+                """;
 
         assertThat(text, equalTo(expected));
     }

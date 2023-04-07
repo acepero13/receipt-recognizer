@@ -27,7 +27,7 @@ public enum ExpressionTable {
     ITEM("(.+?)\\s+(\\d+,\\d+?)\\s+(\\d+)$", (Matcher m) -> new Item(m.group(1), toMoney(m.group(2)), Integer.parseInt(m.group(3)))),
     TOTAL("(?i)summe\\s*.*?(\\d+\\s*,\\s*\\d+)", (Matcher m) -> new Total(toMoney(m.group(1)))),
 
-    TOTAL_FROM_BRUTO("(?i)\\b(?:brutto|bruttoumsatz)\\b\\s+(\\+|\\*)*(\\d+[,.]\\d+)", (Matcher m) -> new Total(toMoney(m.group(2))));;
+    TOTAL_FROM_BRUTO("(?i)\\b(?:brutto|bruttoumsatz)\\b\\s+(\\+|\\*)*(\\d+[,.]\\d+)", (Matcher m) -> new Total(toMoney(m.group(2))));
 
     private static Money toMoney(String str) {
         return Money.of(str);

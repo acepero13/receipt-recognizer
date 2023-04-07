@@ -11,6 +11,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
+@SuppressWarnings("unchecked")
 class ExpressionTableTest {
     @Test void createsItem(){
         String line = "Bier 0,33l 1,50 2";

@@ -1,7 +1,6 @@
 package com.acepero13.ocr.receiptrecognizer.model.vo;
 
 import com.acepero13.ocr.receiptrecognizer.core.exceptions.InvalidPrice;
-import com.acepero13.ocr.receiptrecognizer.core.exceptions.InvalidResult;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;

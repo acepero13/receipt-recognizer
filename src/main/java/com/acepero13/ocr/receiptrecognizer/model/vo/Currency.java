@@ -7,5 +7,5 @@ package com.acepero13.ocr.receiptrecognizer.model.vo;
  * @since 1.0
  */
 public enum Currency {
-    EURO, DOLLAR, NO_CURRENCY;
+    EURO, DOLLAR, NO_CURRENCY
 }

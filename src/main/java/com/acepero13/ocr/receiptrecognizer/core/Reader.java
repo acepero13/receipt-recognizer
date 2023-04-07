@@ -6,11 +6,8 @@ import com.acepero13.ocr.receiptrecognizer.core.exceptions.InvalidResult;
 import com.acepero13.ocr.receiptrecognizer.model.Billable;
 import com.acepero13.ocr.receiptrecognizer.model.Receipt;
 import com.acepero13.ocr.receiptrecognizer.parser.ExpressionTable;
-import com.acepero13.ocr.receiptrecognizer.utils.image.ImageUtils;
 import net.sourceforge.tess4j.TesseractException;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
